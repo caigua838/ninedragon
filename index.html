@@ -6,12 +6,12 @@
     <title>从此只想和同样珍视奶龙的人联系</title>
     <style>
       :root {
-        --pink: #ff6d9d;
-        --pink-dark: #ed4e84;
-        --pink-pale: #fff0f5;
-        --ink: #28242a;
-        --muted: #918891;
-        --line: #f0e8eb;
+        --yellow: #ffd84d;
+        --yellow-dark: #dfa900;
+        --yellow-pale: #fff9df;
+        --ink: #3b3215;
+        --muted: #877b51;
+        --line: #f3e8b8;
       }
 
       * { box-sizing: border-box; }
@@ -34,14 +34,14 @@
 
       header { display: flex; justify-content: space-between; align-items: center; }
       .brand { font-size: 14px; font-weight: 700; letter-spacing: .04em; }
-      .brand i { display: inline-block; width: 9px; height: 9px; margin-right: 7px; background: var(--pink); border-radius: 50%; }
+      .brand i { display: inline-block; width: 9px; height: 9px; margin-right: 7px; background: var(--yellow); border-radius: 50%; }
       .count { color: var(--muted); font-size: 13px; }
 
       main { flex: 1; display: grid; place-items: center; padding: 50px 0; }
-      .generator { width: min(100%, 720px); text-align: center; }
-      .eyebrow { color: var(--pink-dark); font-size: 13px; font-weight: 700; letter-spacing: .16em; }
+      .generator { width: min(100%, 840px); text-align: center; }
+      .eyebrow { color: var(--yellow-dark); font-size: 13px; font-weight: 700; letter-spacing: .16em; }
       h1 { max-width: 620px; margin: 14px auto 34px; font-size: clamp(30px, 5vw, 52px); line-height: 1.22; letter-spacing: -.055em; font-weight: 800; }
-      h1 .accent { color: var(--pink); }
+      h1 .accent { color: var(--yellow-dark); }
 
       .quote-card {
         position: relative;
@@ -49,34 +49,71 @@
         padding: 42px 54px 36px;
         display: grid;
         place-items: center;
-        background: var(--pink-pale);
-        border: 1px solid #ffe0ea;
+        background: var(--yellow-pale);
+        border: 1px solid var(--line);
         border-radius: 22px;
         overflow: hidden;
         transition: transform .25s ease, background .25s ease;
       }
-      .quote-card::before { content: "“"; position: absolute; top: 6px; left: 24px; color: #ffcadb; font-family: Georgia, serif; font-size: 100px; line-height: 1; }
+      .quote-card::before { content: "“"; position: absolute; top: 6px; left: 24px; color: #f8dfa0; font-family: Georgia, serif; font-size: 100px; line-height: 1; }
       .quote { position: relative; width: 100%; margin: 0; text-align: center; font-size: clamp(21px, 3.1vw, 30px); line-height: 1.65; font-weight: 700; letter-spacing: .015em; }
-      .quote-card.fresh { transform: scale(1.015); background: #ffe9f1; }
+      .quote-card.fresh { transform: scale(1.015); background: #fff2b5; }
+
+      .quote-stage { display: grid; grid-template-columns: minmax(0, 1fr) 180px; align-items: end; gap: 18px; }
+      .mascot { position: relative; min-height: 210px; display: grid; place-items: end center; }
+      .mascot img {
+        width: min(100%, 164px);
+        display: block;
+        border-radius: 46% 46% 42% 42%;
+        filter: drop-shadow(0 14px 12px rgba(173, 124, 0, .16));
+        animation: mascot-float 3.4s ease-in-out infinite, mascot-sway 4.8s ease-in-out infinite;
+        transform-origin: center bottom;
+      }
+      .mascot-note {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 7px 10px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: #fff;
+        color: var(--yellow-dark);
+        font-size: 12px;
+        font-weight: 700;
+        transform: rotate(5deg);
+      }
+      @keyframes mascot-float {
+        0%, 100% { translate: 0 0; }
+        50% { translate: 0 -10px; }
+      }
+      @keyframes mascot-sway {
+        0%, 100% { rotate: -2deg; }
+        50% { rotate: 3deg; }
+      }
 
       .actions { display: flex; justify-content: center; gap: 12px; margin-top: 22px; }
       button { border: 0; font: inherit; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
       button:active { transform: scale(.97); }
-      .generate { padding: 14px 22px; border-radius: 999px; background: var(--pink); color: #fff; font-weight: 700; box-shadow: 0 8px 18px #ff6d9d33; }
-      .generate:hover { background: var(--pink-dark); box-shadow: 0 10px 24px #ff6d9d44; }
-      .copy { width: 50px; border: 1px solid #f3d6df; border-radius: 50%; background: #fff; color: var(--pink-dark); font-size: 20px; }
-      .copy:hover { background: var(--pink-pale); }
+      .generate { padding: 14px 22px; border-radius: 999px; background: var(--yellow); color: var(--ink); font-weight: 700; box-shadow: 0 8px 18px #dfa90033; }
+      .generate:hover { background: var(--yellow-dark); color: #fff; box-shadow: 0 10px 24px #dfa90044; }
+      .copy { width: 50px; border: 1px solid var(--line); border-radius: 50%; background: #fff; color: var(--yellow-dark); font-size: 20px; }
+      .copy:hover { background: var(--yellow-pale); }
       .hint { min-height: 20px; margin: 17px 0 0; color: var(--muted); font-size: 13px; }
 
       footer { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; }
-      .mini-dragon { color: var(--pink); font-size: 16px; letter-spacing: 2px; }
+      .mini-dragon { color: var(--yellow-dark); font-size: 16px; letter-spacing: 2px; }
 
       @media (max-width: 600px) {
         .page { padding: 22px 18px 18px; }
         main { padding: 34px 0; }
         h1 { margin-bottom: 28px; }
+        .quote-stage { grid-template-columns: 1fr; gap: 4px; }
         .quote-card { min-height: 235px; padding: 42px 32px 32px; border-radius: 18px; }
         .quote-card::before { left: 13px; }
+        .mascot { min-height: 145px; margin-top: 6px; }
+        .mascot img { width: 130px; }
+        .mascot-note { top: 3px; right: calc(50% - 116px); }
         footer { display: block; line-height: 1.8; }
         .mini-dragon { display: block; margin-top: 4px; }
       }
@@ -93,9 +130,15 @@
         <section class="generator" aria-labelledby="title">
           <div class="eyebrow">NINE DRAGON ONLY</div>
           <h1 id="title">从此只想和同样<br /><span class="accent">珍视奶龙</span>的人联系</h1>
-          <article class="quote-card" id="card" aria-live="polite">
-            <p class="quote" id="quote">奶龙不是一只龙，<br />是我平静生活里唯一的巨响。</p>
-          </article>
+          <div class="quote-stage">
+            <article class="quote-card" id="card" aria-live="polite">
+              <p class="quote" id="quote">奶龙不是一只龙，<br />是我平静生活里唯一的巨响。</p>
+            </article>
+            <aside class="mascot" aria-label="会摇摆的奶龙">
+              <p class="mascot-note">陪你抽一句</p>
+              <img src="assets/milk-dragon.jpeg" alt="黄色圆润的奶龙抱着手站立" />
+            </aside>
+          </div>
           <div class="actions">
             <button class="generate" id="generate" type="button">再抽一句 ✦</button>
             <button class="copy" id="copy" type="button" aria-label="复制文案" title="复制文案">⧉</button>

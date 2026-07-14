@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>从此只想和同样珍视奶龙的人联系</title>
+    <style>
+      :root {
+        --pink: #ff6d9d;
+        --pink-dark: #ed4e84;
+        --pink-pale: #fff0f5;
+        --ink: #28242a;
+        --muted: #918891;
+        --line: #f0e8eb;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100svh;
+        color: var(--ink);
+        background: #fff;
+        font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      }
+
+      .page {
+        width: min(100%, 940px);
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: 28px 32px 22px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      header { display: flex; justify-content: space-between; align-items: center; }
+      .brand { font-size: 14px; font-weight: 700; letter-spacing: .04em; }
+      .brand i { display: inline-block; width: 9px; height: 9px; margin-right: 7px; background: var(--pink); border-radius: 50%; }
+      .count { color: var(--muted); font-size: 13px; }
+
+      main { flex: 1; display: grid; place-items: center; padding: 50px 0; }
+      .generator { width: min(100%, 720px); text-align: center; }
+      .eyebrow { color: var(--pink-dark); font-size: 13px; font-weight: 700; letter-spacing: .16em; }
+      h1 { max-width: 620px; margin: 14px auto 34px; font-size: clamp(30px, 5vw, 52px); line-height: 1.22; letter-spacing: -.055em; font-weight: 800; }
+      h1 .accent { color: var(--pink); }
+
+      .quote-card {
+        position: relative;
+        min-height: 215px;
+        padding: 42px 54px 36px;
+        display: grid;
+        place-items: center;
+        background: var(--pink-pale);
+        border: 1px solid #ffe0ea;
+        border-radius: 22px;
+        overflow: hidden;
+        transition: transform .25s ease, background .25s ease;
+      }
+      .quote-card::before { content: "“"; position: absolute; top: 6px; left: 24px; color: #ffcadb; font-family: Georgia, serif; font-size: 100px; line-height: 1; }
+      .quote { position: relative; width: 100%; margin: 0; text-align: center; font-size: clamp(21px, 3.1vw, 30px); line-height: 1.65; font-weight: 700; letter-spacing: .015em; }
+      .quote-card.fresh { transform: scale(1.015); background: #ffe9f1; }
+
+      .actions { display: flex; justify-content: center; gap: 12px; margin-top: 22px; }
+      button { border: 0; font: inherit; cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+      button:active { transform: scale(.97); }
+      .generate { padding: 14px 22px; border-radius: 999px; background: var(--pink); color: #fff; font-weight: 700; box-shadow: 0 8px 18px #ff6d9d33; }
+      .generate:hover { background: var(--pink-dark); box-shadow: 0 10px 24px #ff6d9d44; }
+      .copy { width: 50px; border: 1px solid #f3d6df; border-radius: 50%; background: #fff; color: var(--pink-dark); font-size: 20px; }
+      .copy:hover { background: var(--pink-pale); }
+      .hint { min-height: 20px; margin: 17px 0 0; color: var(--muted); font-size: 13px; }
+
+      footer { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; }
+      .mini-dragon { color: var(--pink); font-size: 16px; letter-spacing: 2px; }
+
+      @media (max-width: 600px) {
+        .page { padding: 22px 18px 18px; }
+        main { padding: 34px 0; }
+        h1 { margin-bottom: 28px; }
+        .quote-card { min-height: 235px; padding: 42px 32px 32px; border-radius: 18px; }
+        .quote-card::before { left: 13px; }
+        footer { display: block; line-height: 1.8; }
+        .mini-dragon { display: block; margin-top: 4px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="brand"><i></i>奶龙联络处</div>
+        <div class="count" id="count">今日已抽取 0 次</div>
+      </header>
+
+      <main>
+        <section class="generator" aria-labelledby="title">
+          <div class="eyebrow">NINE DRAGON ONLY</div>
+          <h1 id="title">从此只想和同样<br /><span class="accent">珍视奶龙</span>的人联系</h1>
+          <article class="quote-card" id="card" aria-live="polite">
+            <p class="quote" id="quote">奶龙不是一只龙，<br />是我平静生活里唯一的巨响。</p>
+          </article>
+          <div class="actions">
+            <button class="generate" id="generate" type="button">再抽一句 ✦</button>
+            <button class="copy" id="copy" type="button" aria-label="复制文案" title="复制文案">⧉</button>
+          </div>
+          <p class="hint" id="hint">今日宜：为奶龙失去语言组织能力</p>
+        </section>
+      </main>
+
+      <footer>
+        <span>随机抽取一条，发给懂的人。</span>
+        <span class="mini-dragon">● ◠ ●</span>
+      </footer>
+    </div>
+
+    <script>
+      const quotes = [
+        '奶龙不是一只龙，<br>是我平静生活里唯一的巨响。',
+        '有人问我最近怎么样。<br>我说：奶龙还在，我就还行。',
+        '世界上有很多道理，<br>但奶龙圆圆的，这就够了。',
+        '我不需要被全世界理解，<br>只需要有人和我一起说：奶龙好可爱。',
+        '如果快乐有形状，<br>大概就是奶龙走过来时那种摇摇晃晃。',
+        '请不要劝我成熟，<br>我正在认真研究奶龙今天会不会想我。',
+        '我的精神状态：<br>奶龙看我一眼，我就原地开花。',
+        '人类的语言太贫瘠，<br>不足以形容我对奶龙的珍视。',
+        '成年人的崩溃可以很安静，<br>比如刷到奶龙时突然想哭。',
+        '奶龙出现的地方，<br>我的注意力自动签署永久居留协议。',
+        '不是所有龙都要上天，<br>奶龙只要在我心里打个滚就好了。',
+        '我和奶龙之间，<br>隔着一层屏幕，隔着全部不被理解的温柔。',
+        '今天没有什么大事，<br>只是又比昨天更喜欢奶龙一点。',
+        '有奶龙的宇宙，<br>才值得我勉强参与一下。',
+        '别人收藏风景，<br>我收藏每一个奶龙好像在对我笑的瞬间。'
+      ];
+      const tips = [
+        '今日宜：为奶龙失去语言组织能力', '今日宜：把奶龙当作人生哲学', '今日宜：寻找另一个奶龙信徒', '今日宜：把可爱重复一万遍', '今日宜：对世界保持一点圆润'];
+      let current = 0, count = 0;
+      const quote = document.querySelector('#quote'), card = document.querySelector('#card');
+      const countEl = document.querySelector('#count'), hint = document.querySelector('#hint');
+      function generate() {
+        let next;
+        do { next = Math.floor(Math.random() * quotes.length); } while (next === current && quotes.length > 1);
+        current = next; count++;
+        card.classList.remove('fresh');
+        void card.offsetWidth;
+        quote.innerHTML = quotes[current];
+        card.classList.add('fresh');
+        countEl.textContent = `今日已抽取 ${count} 次`;
+        hint.textContent = tips[Math.floor(Math.random() * tips.length)];
+      }
+      document.querySelector('#generate').addEventListener('click', generate);
+      document.querySelector('#copy').addEventListener('click', async () => {
+        const text = quote.innerText;
+        try { await navigator.clipboard.writeText(text); hint.textContent = '已复制，快发给那个懂奶龙的人。'; }
+        catch { hint.textContent = '复制失败，但这句很值得记住。'; }
+      });
+    </script>
+  </body>
+</html>
